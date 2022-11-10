@@ -224,4 +224,17 @@ class mahasiswaController extends Controller
 
         ]);
     }
+
+    public function doc(Request $request)
+    {
+        $mahasiswa = $request->authM;
+        $db = Pengajuan::where('mahasiswa_id', $mahasiswa['mahasiswa_id'])->get();
+
+        return view('mahasiswa-layouts.dokumen_akhir' , [
+            "title" => "SKPIMU",
+            "no" => ".............",
+            "user" => $request->authM ,
+            "kualifikasi" => !empty($db) ? $db->toArray() : [],
+        ]);
+    }
 }

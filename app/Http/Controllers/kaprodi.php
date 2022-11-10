@@ -6,6 +6,7 @@ use App\Models\Kaprodi as ModelsKaprodi;
 use App\Models\Mahasiswa;
 use App\Models\Pengajuan;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -239,6 +240,20 @@ class kaprodi extends Controller
             "title" => "Dokumen Mahasiswa",
             "menu" => "dokemen",
 
+        ]);
+    }
+
+    public function dokumen_akhir(Request $request, $id)
+    {
+        $mahasiswa = Mahasiswa::where('mahasiswa_id', $id)->first();
+        
+        $db = Pengajuan::where('mahasiswa_id', $mahasiswa['mahasiswa_id'])->get();
+
+        return view('mahasiswa-layouts.dokumen_akhir', [
+            "title" => "SKPIMU",
+            "no" => ".............",
+            "user" => $request->authM,
+            "kualifikasi" => !empty($db) ? $db->toArray() : [],
         ]);
     }
 }

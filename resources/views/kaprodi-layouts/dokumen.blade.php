@@ -40,6 +40,11 @@
                                                             <i class="fas fa-eye"></i>
                                                         </button>
                                                     </a>
+                                                    <a href="/kaprodi/dokumen/skpi/1">
+                                                        <button type="button" class="btn btn-primary btn-sm">
+                                                            skpi
+                                                        </button>
+                                                    </a>
                                                    </td>
                                                 </tr>
 

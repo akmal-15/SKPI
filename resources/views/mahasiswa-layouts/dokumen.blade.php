@@ -5,7 +5,7 @@
 <div class="container-fluid mt-4">
     @if ($mahasiswa['validasi_dokumen'])
         <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-success ">Download SKPI</button>
+            <a href="/mahasiswa/dokumen_akhir" class="btn btn-success ">Download SKPI</a>
         </div>
     @endif
     {{-- <tr>
@@ -29,7 +29,7 @@
             @foreach ($dokumen as $d)
             <tr>
                 <td>{{ $d['kegiatan'] }}</td>
-                <td><a href="{{ asset($d['kegiatan_url']) }}" target="_blank" class="btn btn-primary"> <i
+                <td><a href="{{ asset("storage/" . $d['kegiatan_url']) }}" target="_blank" class="btn btn-primary"> <i
                             class="fas fa-eye"></i> </a></td>
                 <td>
                     @if ($d['status'])

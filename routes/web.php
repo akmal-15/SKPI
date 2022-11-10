@@ -57,6 +57,7 @@ Route::get('/kaprodi/sudah-validasi',  [kaprodi::class, 'sudah_validasi'])->midd
 Route::post('/kaprodi/konfirmasi-validasi',  [kaprodi::class, 'konfirmasi_validasi'])->middleware("isKaprodi");
 Route::post('/kaprodi/konfirmasi-validasi-batal',  [kaprodi::class, 'konfirmasi_validasiBatal'])->middleware("isKaprodi");
 Route::get('/kaprodi/dokumen',  [kaprodi::class, 'dokumen'])->middleware("isKaprodi")->middleware("isKaprodi");
+Route::get('/kaprodi/dokumen/skpi/{id}',  [kaprodi::class, 'dokumen_akhir'])->middleware("isKaprodi")->middleware("isKaprodi");
 
 //Mahasiswa
 Route::get('/mahasiswa', [mahasiswaController::class, 'index'])->middleware("isMahasiswa");
@@ -73,6 +74,7 @@ Route::post('/mahasiswa/pengajuan', [mahasiswaController::class, 'pengajuanPost'
 Route::get('/mahasiswa/dokumen', [mahasiswaController::class, 'dokumen'])->middleware("isMahasiswa");
 Route::post('/mahasiswa/dokumen-delete', [mahasiswaController::class, 'dokumenDelete'])->middleware("isMahasiswa");
 Route::get('/mahasiswa/akun', [mahasiswaController::class, 'akun'])->middleware("isMahasiswa");
+Route::get('/mahasiswa/dokumen_akhir', [mahasiswaController::class, 'doc'])->middleware("isMahasiswa");
 
 
 require __DIR__ . '/auth.php';
