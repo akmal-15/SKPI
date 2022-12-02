@@ -1,80 +1,66 @@
 @extends('kaprodi-layouts.kaprodi')
 
 @section('content')
-    <div class="content-wrapper">
-    
-        @include('admin-layouts.breadcrumb')
-    
-        <section class="content">
-            <div class="container-fluid">
-                <!-- Main content -->
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12">
+<div class="content-wrapper">
+
+    @include('admin-layouts.breadcrumb')
+
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        @foreach($soal as $i => $v)
+                            <div class="col-12 my-2">
                                 <div class="card">
-    
                                     <div class="card-body">
                                         <table id="" class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>Soal 1</th>
-                                                    <td>kenapa bagaimana?</td>
+                                                    <th>Soal {{ $i+1 }}</th>
+                                                    <td>{{ $v['soal'] }}</td>
                                                 </tr>
-
                                                 <tr>
-                                                    <th>Jawaban 1</th>
-                                                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium</td>
+                                                    <th>Jawaban A</th>
+                                                    <td>{{ $v['jawaban_1'] }}</td>
                                                 </tr>
-
                                                 <tr>
-                                                    <th>Jawaban 2</th>
-                                                    <td>Lorem ipsum dolor sit amet. </td>
+                                                    <th>Jawaban B</th>
+                                                    <td>{{ $v['jawaban_2'] }}</td>
                                                 </tr>
-
                                                 <tr>
-                                                    <th>Jawaban 3</th>
-                                                    <td>Lorem ipsum dolor sit amet. </td>
+                                                    <th>Jawaban C</th>
+                                                    <td>{{ $v['jawaban_3'] }}</td>
                                                 </tr>
-
                                                 <tr>
-                                                    <th>Jawaban 4</th>
-                                                    <td>Lorem ipsum dolor sit amet. </td>
+                                                    <th>Jawaban D</th>
+                                                    <td>{{ $v['jawaban_4'] }}</td>
                                                 </tr>
-
                                                 <tr>
                                                     <th>Jawaban</th>
-                                                    <td>Jawaban 2</td>
+                                                    <td>{{ $v['jawaban'] }}</td>
                                                 </tr>
-    
                                                 <tr>
                                                     <th>Opsi</th>
                                                     @include('kaprodi-layouts.action-detail-soal')
-                                                    
                                                 </tr>
-                                                <tr>
-                                                    <th></th>
-                                                    <td></td>
-                                                </tr>
-
                                             </thead>
-
                                         </table>
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.card -->
-    
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
+                            </div>  
+                        @endForeach
                     </div>
-                    <!-- /.container-fluid -->
-                </section>
-                <!-- /.content -->
-            </div>
-        </section>
-    
-    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+    </section>
+
+</div>
+{{-- modal --}}
+
 @endsection

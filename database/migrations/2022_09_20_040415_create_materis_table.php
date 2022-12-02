@@ -18,8 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('kaprodi_id');
             $table->string('nama_materi', 100);
             $table->string('deskripsi', 100);
-            $table->string('nilai', 100);
-            $table->timestamp('waktu_soal');
+            // $table->string('nilai', 100);
+            $table->integer('waktu_soal');
+            $table->timestamp('waktu_exp');
             $table->timestamps();
             $table->foreign('kaprodi_id')->references('kaprodi_id')->on('kaprodi')->onDelete('cascade')->onUpdate('cascade');
         });

@@ -98,6 +98,7 @@
                                                         </div>
                                                     
                                                     </td>
+                                                    
                                                     <td>
                                                         <form action="/admin/mahasiswa-delete" method="post">
                                                             @csrf

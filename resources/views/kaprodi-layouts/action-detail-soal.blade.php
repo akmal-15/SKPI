@@ -1,10 +1,10 @@
 <td>
-    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal">
+    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $v['soal_id'] }}">
         <i class="fas fa-pencil-alt"></i>
     </button>
 
     {{-- modal --}}
-    <div class="modal fade " id="editModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    <div class="modal fade " id="editModal{{ $v['soal_id'] }}" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -15,35 +15,44 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="">
+                    @if ($pesan)
+                    @if ($pesan['id'] == $m['soal'] )
+                    <div class="alert alert-warning" role="alert">
+                        {{ $pesan['pesan'] }}
+                    </div>
+                    @endif
+                    @endif
+                    <form method="POST" action="/kaprodi/update-soal">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $id }}">
                         <div class="mb-3">
                             <label class="form-label">Soal</label>
-                            <textarea name="soal" id="" cols="40" rows="3" class="form-control"></textarea>
+                            <textarea name="soal" id="" cols="40" rows="3" class="form-control">{{ $v['soal'] }}</textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Jawaban 1</label>
-                            <input type="text" class="form-control">
+                            <label class="form-label">Jawaban A</label>
+                            <input type="text" class="form-control" name="jawabanA" value="{{ $v['jawaban_1'] }}">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Jawaban 2</label>
-                            <input type="text" class="form-control">
+                            <label class="form-label">Jawaban B</label>
+                            <input type="text" class="form-control" name="jawabanB" value="{{ $v['jawaban_2'] }}">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Jawaban 3</label>
-                            <input type="text" class="form-control">
+                            <label class="form-label">Jawaban C</label>
+                            <input type="text" class="form-control" name="jawabanC" value="{{ $v['jawaban_3'] }}">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Jawaban 4</label>
-                            <input type="text" class="form-control">
+                            <label class="form-label">Jawaban D</label>
+                            <input type="text" class="form-control" name="jawabanD" value="{{ $v['jawaban_4'] }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Jawaban</label>
                             <select class="form-control">
                                 <option value="">Pilih Jawaban</option>
-                                <option value="">Jawaban 1</option>
-                                <option value="">Jawaban 2</option>
-                                <option value="">Jawaban 3</option>
-                                <option value="">Jawaban 4</option>
+                                <option value="A" <?= $v['jawaban'] == 'A' ? 'selected' : ''?>>Jawaban A</option>
+                                <option value="B" <?= $v['jawaban'] == 'B' ? 'selected' : ''?>>Jawaban B</option>
+                                <option value="C" <?= $v['jawaban'] == 'C' ? 'selected' : ''?>>Jawaban C</option>
+                                <option value="D" <?= $v['jawaban'] == 'D' ? 'selected' : ''?>>Jawaban D</option>
                             </select>
                         </div>
                     </form>

@@ -26,6 +26,6 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset ('AdminLTE/plugins')}}/summernote/summernote-bs4.min.css">
 
-    <link rel="stylesheet" href="/form-input-data.css">
+    {{-- <link rel="stylesheet" href="/form-input-data.css"> --}}
 
 </head>

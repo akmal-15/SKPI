@@ -46,9 +46,14 @@ Route::get('/logout-kaprodi', [kaprodi::class, 'logout']);
 Route::post('/login-kaprodi', [kaprodi::class, 'loginPost']);
 Route::get('/kaprodi', [kaprodi::class, 'index'])->middleware("isKaprodi");
 Route::get('/kaprodi/materi-tambah', [kaprodi::class, 'tambah_materi'])->middleware("isKaprodi");
+Route::post('/kaprodi/tambah-materi', [kaprodi::class, 'materiPost'])->middleware("isKaprodi");
+Route::post('/kaprodi/materi-update', [kaprodi::class, 'update_materi'])->middleware("isKaprodi");
+Route::post('/kaprodi/materi-delete', [kaprodi::class, 'delete_materi'])->middleware("isKaprodi");
 // Route::get('/kaprodi/materi-edit', [kaprodi::class, 'edit_materi']);
 Route::get('/kaprodi/data-soal', [kaprodi::class, 'data_soal'])->middleware("isKaprodi");
 Route::get('/kaprodi/tambah-soal', [kaprodi::class, 'tambah_soal'])->middleware("isKaprodi");
+Route::post('/kaprodi/tambah-soal', [kaprodi::class, 'soalPost'])->middleware("isKaprodi");
+Route::post('/kaprodi/update-soal', [kaprodi::class, 'updateSoalPost'])->middleware("isKaprodi");
 Route::get('/kaprodi/data-soal-detail',  [kaprodi::class, 'detail_soal'])->middleware("isKaprodi");
 Route::get('/kaprodi/validasi-pengajuan',  [kaprodi::class, 'validasi_pengajuan'])->middleware("isKaprodi");
 Route::get('/kaprodi/validasi-pengajuan-detail',  [kaprodi::class, 'detail_validasi'])->middleware("isKaprodi");
@@ -58,6 +63,7 @@ Route::post('/kaprodi/konfirmasi-validasi',  [kaprodi::class, 'konfirmasi_valida
 Route::post('/kaprodi/konfirmasi-validasi-batal',  [kaprodi::class, 'konfirmasi_validasiBatal'])->middleware("isKaprodi");
 Route::get('/kaprodi/dokumen',  [kaprodi::class, 'dokumen'])->middleware("isKaprodi")->middleware("isKaprodi");
 Route::get('/kaprodi/dokumen/skpi/{id}',  [kaprodi::class, 'dokumen_akhir'])->middleware("isKaprodi")->middleware("isKaprodi");
+
 
 //Mahasiswa
 Route::get('/mahasiswa', [mahasiswaController::class, 'index'])->middleware("isMahasiswa");

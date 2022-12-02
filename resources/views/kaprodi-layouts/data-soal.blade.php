@@ -24,17 +24,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Php & Mysql</td>
-                                                <td>30</td>
-                                                <td>
-                                                    <a href="/kaprodi/data-soal-detail">
-                                                        <button type="button" class="btn btn-primary btn-sm">
+                                            @foreach($materi as $i => $v)
+                                                <tr>
+                                                    <td>{{ $v['nama_materi'] }}</td>
+                                                    <td>XX</td>
+                                                    <td>
+                                                        <a href="/kaprodi/data-soal-detail?id={{ $v['materi_id'] }}" class="btn btn-primary btn-sm">
                                                             <i class="fas fa-eye"></i>
-                                                        </button>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
 
                                         </tbody>
 
@@ -55,7 +55,7 @@
         </div>
     </section>
 
-    
+
 
 </div>
 @endsection

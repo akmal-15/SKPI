@@ -12,20 +12,45 @@
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             {{-- <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3> --}}
-                            <form method="POST" action="">
+
+                            @if (session('status'))
+                            @if (session('status')["status"])
+                            <div class="alert alert-success mb-2">
+                                {{ session('status')["pesan"] }}
+                            </div>
+                            @else
+                            <div class="alert alert-danger mb-2">
+                                {{ session('status')["pesan"] }}
+                            </div>
+                            @endif
+                            @endif
+
+                            <form method="POST" action="/kaprodi/tambah-materi">
+                                @csrf
                                 <div class="mb-3">
                                     <label class="form-label">Nama Materi</label>
-                                    <input type="text" class="form-control" name="tnim">
+                                    <input type="text" class="form-control" name="nama_materi">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Deskripsi</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="deskripsi">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Waktu</label>
-                                    <input type="number" class="form-control">
+                                    <label class="form-label">Waktu Soal ( menit )</label>
+                                    <input type="number" class="form-control" name="waktu_soal">
                                 </div>
-                                
+                                {{-- <div class="mb-3">
+                                    <label class="form-label">Grade Soal</label>
+                                    <select name="form-control" id="" name="nilai">
+                                        <option value="">==== Pilih Grade ====</option>
+                                        <option value=""></option>
+                                    </select>
+                                </div> --}}
+                                <div class="mb-3">
+                                    <label class="form-label">Waktu Exp</label>
+                                    <input type="date" class="form-control" name="waktu_exp">
+                                </div>
+
                                 <div class="mt-4 pt-2 text-right">
                                     <input class="btn btn-primary btn-lg" type="submit" value="Simpan">
                                 </div>

@@ -25,7 +25,11 @@
                             <input type="text" class="form-control">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Waktu</label>
+                            <label class="form-label">Waktu Soal</label>
+                            <input type="number" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Waktu Expired</label>
                             <input type="number" class="form-control">
                         </div>
                     </form>

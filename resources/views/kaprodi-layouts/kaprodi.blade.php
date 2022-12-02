@@ -15,8 +15,8 @@
 
     </div>
 
-
-    @include('admin-layouts.script')
+    @include('kaprodi-layouts.script')
+    @yield('script')
 
 </body>
 
