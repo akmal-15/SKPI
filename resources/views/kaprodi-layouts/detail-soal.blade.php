@@ -9,6 +9,26 @@
         <div class="container-fluid">
             <!-- Main content -->
             <section class="content">
+							<div class="container-fluid">
+								<div class="card">
+									<div class="card-body">
+										<button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">Tambah Soal</button>
+									</div>
+								</div>
+							</div>
+							<div class="container-fluid">
+								@if (session('status'))
+									@if (session('status')["status"])
+										<div class="alert alert-success mb-2">
+												{{ session('status')["pesan"] }}
+										</div>					
+									@else
+										<div class="alert alert-danger mb-2">
+												{{ session('status')["pesan"] }}
+										</div>
+									@endif
+								@endif
+							</div>
                 <div class="container-fluid">
                     <div class="row">
                         @foreach($soal as $i => $v)
@@ -62,5 +82,69 @@
 
 </div>
 {{-- modal --}}
+<div class="modal fade" id="modalTambah" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Tambah Soal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+				<form method="POST" action="/kaprodi/tambah-soal">
+						@csrf
+						<input type="hidden" name="id" value="{{ $id }}">
+						{{-- <input type="hidden" name="id" value="3"> --}}
+						{{-- <div class="mb-3" id="soal">
+								<label class="form-label">Materi</label>
+								<select class="form-control" name="materi_id[]">
+										<option value="">Pilih Materi</option>
+										<option value="">Materi 1</option>
+										<option value="">Materi 2</option>
+								</select>
+						</div> --}}
+
+						<div class="mb-3">
+								<label class="form-label">Soal</label>
+								<input type="text" name="soal[]" class="form-control" value="asdasdwsa">
+						</div>
+						<div class="mb-3">
+								<label class="form-label">Jawaban 1</label>
+								<input name="jawabanA[]" type="text" class="form-control" value="asawas">
+						</div>
+						<div class="mb-3">
+								<label class="form-label">Jawaban 2</label>
+								<input name="jawabanB[]" type="text" class="form-control" value="asawas">
+						</div>
+						<div class="mb-3">
+								<label class="form-label">Jawaban 3</label>
+								<input name="jawabanC[]" type="text" class="form-control" value="asawas">
+						</div>
+						<div class="mb-3">
+								<label class="form-label">Jawaban 4</label>
+								<input name="jawabanD[]" type="text" class="form-control" value="asawas">
+						</div>
+
+						<div class="mb-3">
+								<label class="form-label">Jawaban Benar</label>
+								<select name="jawaban[]" class="form-control">
+										<option value="">Pilih Jawaban</option>
+										<option value="A" selected>Jawaban A</option>
+										<option value="B">Jawaban B</option>
+										<option value="C">Jawaban C</option>
+										<option value="D">Jawaban D</option>
+								</select>
+						</div>
+
+						<div class="mt-4 pt-2 text-right">
+								<input class="btn btn-primary" type="submit" value="Simpan">
+						</div>
+				</form>
+      </div>
+    </div>
+  </div>
+</div>
 
 @endsection

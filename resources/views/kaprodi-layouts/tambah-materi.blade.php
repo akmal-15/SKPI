@@ -48,7 +48,7 @@
                                 </div> --}}
                                 <div class="mb-3">
                                     <label class="form-label">Waktu Exp</label>
-                                    <input type="date" class="form-control" name="waktu_exp">
+                                    <input type="datetime-local" class="form-control" name="waktu_exp">
                                 </div>
 
                                 <div class="mt-4 pt-2 text-right">

@@ -16,10 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// require __DIR__ . '/auth.php';
+
 Route::get('/', function () {
-    return view('welcome', [
-        "title" => "SKPI FTI UNSERA"
-    ]);
+	return view('welcome', [
+		"title" => "SKPI FTI UNSERA"
+	]);
 });
 
 
@@ -81,6 +83,3 @@ Route::get('/mahasiswa/dokumen', [mahasiswaController::class, 'dokumen'])->middl
 Route::post('/mahasiswa/dokumen-delete', [mahasiswaController::class, 'dokumenDelete'])->middleware("isMahasiswa");
 Route::get('/mahasiswa/akun', [mahasiswaController::class, 'akun'])->middleware("isMahasiswa");
 Route::get('/mahasiswa/dokumen_akhir', [mahasiswaController::class, 'doc'])->middleware("isMahasiswa");
-
-
-require __DIR__ . '/auth.php';

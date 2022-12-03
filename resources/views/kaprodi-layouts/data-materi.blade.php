@@ -116,7 +116,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="prodi">Waktu Expired</label>
-                                <input name="waktu_exp" type="date" class="form-control" value="{{ date('Y-m-d', strtotime($m["waktu_exp"])) }}">
+                                <input name="waktu_exp" type="datetime-local" class="form-control" value="{{ date('Y-m-d\Th:m', strtotime($m["waktu_exp"])) }}">
                             </div>
                             <div class="mb-3">
 

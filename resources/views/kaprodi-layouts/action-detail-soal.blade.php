@@ -15,19 +15,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @if ($pesan)
-                    @if ($pesan['id'] == $m['soal'] )
-                    <div class="alert alert-warning" role="alert">
-                        {{ $pesan['pesan'] }}
-                    </div>
-                    @endif
-                    @endif
                     <form method="POST" action="/kaprodi/update-soal">
                         @csrf
                         <input type="hidden" name="id" value="{{ $id }}">
                         <div class="mb-3">
                             <label class="form-label">Soal</label>
-                            <textarea name="soal" id="" cols="40" rows="3" class="form-control">{{ $v['soal'] }}</textarea>
+                            <input type="text" name="soal" class="form-control" value="{{ $v['soal'] }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Jawaban A</label>
@@ -47,19 +40,19 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Jawaban</label>
-                            <select class="form-control">
+                            <select class="form-control" name="jawaban">
                                 <option value="">Pilih Jawaban</option>
                                 <option value="A" <?= $v['jawaban'] == 'A' ? 'selected' : ''?>>Jawaban A</option>
                                 <option value="B" <?= $v['jawaban'] == 'B' ? 'selected' : ''?>>Jawaban B</option>
                                 <option value="C" <?= $v['jawaban'] == 'C' ? 'selected' : ''?>>Jawaban C</option>
                                 <option value="D" <?= $v['jawaban'] == 'D' ? 'selected' : ''?>>Jawaban D</option>
                             </select>
-                        </div>
+													</div>
+													<button type="submit" class="btn btn-primary" name="b-update">Update</button>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="b-update">Update</button>
                 </div>
             </div>
         </div>

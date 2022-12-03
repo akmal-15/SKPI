@@ -17,7 +17,7 @@
             <form action="/login-kaprodi" method="post">
                 @csrf
                 <div class="input-group mb-3">
-                    <input type="number" class="form-control" placeholder="Kode Dosen" name="kode-dosen">
+                    <input type="number" class="form-control" placeholder="Kode Dosen" name="kode-dosen" value="11218011">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Password" name="pass">
+                    <input type="password" class="form-control" placeholder="Password" name="pass" value="12345678">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
