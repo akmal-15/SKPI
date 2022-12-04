@@ -233,8 +233,7 @@ class kaprodi extends Controller
 			dd($validator->errors()->toArray());
 			return redirect()->back()->with('status', ["status" => false, "pesan" => "gagal validasi", "id" => $request->input("id")]);
 		}
-
-		$db = Soal::where('soal_id', $request->input('id'))->first()->toArray();
+		$db = Soal::where('soal_id', $request->input('id'))->first();
 
 		if (empty($db)) {
 			return redirect()->back()->with("status", ["status" => false, "pesan" => "id ga ada", "id" => $request->input("id")]);
@@ -263,6 +262,36 @@ class kaprodi extends Controller
 			return redirect()->back()->with("status", ["status" => true, "pesan" => "data terupdate", "id" => $request->input("id")]);
 		} else {
 			return redirect()->back()->with("status", ["status" => false, "pesan" => "gagal update", "id" => $request->input("id")]);
+		}
+	}
+
+	public function hapusSoal(Request $request)
+	{ {
+			$validator = Validator::make(
+				$request->input(),
+				[
+					"id" => ["required", "numeric"],
+
+				]
+			);
+
+			if ($validator->fails()) {
+				return redirect()->back()->with('status', ["status" => false, "pesan" => "gagal validasi", "id" => $request->input("id")]);
+			}
+
+			$db = Soal::where('soal_id', $request->input('id'))->first()->toArray();
+
+			if (empty($db)) {
+				return redirect()->back()->with("status", ["status" => false, "pesan" => "id ga ada", "id" => $request->input("id")]);
+			}
+
+			$db = Soal::where('soal_id', $request->input('id'))->delete();
+
+			if ($db) {
+				return redirect()->back()->with("status", ["status" => true, "pesan" => "berhasil hapus soal", "id" => $request->input("id")]);
+			} else {
+				return redirect()->back()->with("status", ["status" => false, "pesan" => "gagal hapus soal", "id" => $request->input("id")]);
+			}
 		}
 	}
 

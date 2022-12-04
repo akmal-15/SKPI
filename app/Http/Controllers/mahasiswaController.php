@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\Materi;
 use App\Models\Pengajuan;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -100,16 +101,28 @@ class mahasiswaController extends Controller
     public function materi()
     {
         return view('mahasiswa-layouts.materi', [
-            "title" => "Materi"
-
+            "title" => "Materi",
+            "materi" => Materi::get()->toArray()
         ]);
     }
 
-    public function materi_detail()
+    public function materi_detail(Request $request)
     {
-        return view('mahasiswa-layouts.materi-detail', [
-            "title" => "Materi Detail"
 
+        // cek id dan wajib ada id
+        $id = $request->input('id');
+        if (empty($id)) return redirect()->to('/mahasiswa/materi');
+        
+        // ambil data soal
+        $materi = Materi::where('materi_id', $id)->first();
+        // dd($soal->toArray());
+        if(empty($materi)) return redirect()->to('/mahasiswa/materi');
+
+        return view('mahasiswa-layouts.materi-detail', [
+            "title" => "Materi Detail",
+            'id' => $id,
+            'materi' => $materi->toArray(),
+            'pesan' => session('pesan') ?? false
         ]);
     }
 

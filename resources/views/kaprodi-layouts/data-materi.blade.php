@@ -37,13 +37,13 @@
                                                     <td>{{ $m['waktu_exp'] }}</td>
 
                                                     <td>
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal{{ $m['materi_id'] }}">
+                                                        {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal{{ $m['materi_id'] }}">
                                                             edit
-                                                        </button>
-                                                            {{-- <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                                        </button> --}}
+                                                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
                                                                 data-target="#editModal{{ $m['materi_id'] }}">
                                                                 <i class="fas fa-pencil-alt"></i>
-                                                            </button> --}}
+                                                            </button>
                                                     </td>
 
                                                     <td>

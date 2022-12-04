@@ -56,6 +56,7 @@ Route::get('/kaprodi/data-soal', [kaprodi::class, 'data_soal'])->middleware("isK
 Route::get('/kaprodi/tambah-soal', [kaprodi::class, 'tambah_soal'])->middleware("isKaprodi");
 Route::post('/kaprodi/tambah-soal', [kaprodi::class, 'soalPost'])->middleware("isKaprodi");
 Route::post('/kaprodi/update-soal', [kaprodi::class, 'updateSoalPost'])->middleware("isKaprodi");
+Route::post('/kaprodi/hapus-soal', [kaprodi::class, 'hapusSoal'])->middleware("isKaprodi");
 Route::get('/kaprodi/data-soal-detail',  [kaprodi::class, 'detail_soal'])->middleware("isKaprodi");
 Route::get('/kaprodi/validasi-pengajuan',  [kaprodi::class, 'validasi_pengajuan'])->middleware("isKaprodi");
 Route::get('/kaprodi/validasi-pengajuan-detail',  [kaprodi::class, 'detail_validasi'])->middleware("isKaprodi");

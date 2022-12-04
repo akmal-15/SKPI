@@ -1,4 +1,4 @@
-<td>
+<td class="d-flex">
     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $v['soal_id'] }}">
         <i class="fas fa-pencil-alt"></i>
     </button>
@@ -17,7 +17,7 @@
                 <div class="modal-body">
                     <form method="POST" action="/kaprodi/update-soal">
                         @csrf
-                        <input type="hidden" name="id" value="{{ $id }}">
+                        <input type="hidden" name="id" value="{{ $v['soal_id'] }}">
                         <div class="mb-3">
                             <label class="form-label">Soal</label>
                             <input type="text" name="soal" class="form-control" value="{{ $v['soal'] }}">
@@ -58,5 +58,9 @@
         </div>
     </div>
 
-    <button type="button" class="btn btn-danger btn-sm ml-4"><i class="fas fa-trash"></i></button>
+    <form action="/kaprodi/hapus-soal" method="post">
+        @csrf()
+        <input type="hidden" name="id" value="{{ $v['soal_id'] }}">
+        <button type="submit" class="btn btn-danger btn-sm ml-4"><i class="fas fa-trash"></i></button>
+    </form>
 </td>

@@ -33,8 +33,8 @@
 
                                 <form method="POST" action="/kaprodi/tambah-soal">
                                     @csrf
-                                    {{-- <input type="hidden" name="id" value="{{ $id }}"> --}}
-                                    <input type="hidden" name="id" value="3">
+                                    <input type="hidden" name="id" value="{{ $id }}">
+                                    {{-- <input type="hidden" name="id" value="3"> --}}
                                     {{-- <div class="mb-3" id="soal">
                                         <label class="form-label">Materi</label>
                                         <select class="form-control" name="materi_id[]">

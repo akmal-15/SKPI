@@ -21,30 +21,23 @@
                                                     <th></th>
                                                 </tr>
                                             </thead>
+
                                             <tbody>
+                                                @foreach ($materi as $m)
                                                 <tr>
-                                                    <td>isi nama materi</td>
-                                                    <td>isi deskripsi</td>
+                                                    
+                                                <td>{{ $m['nama_materi'] }}</td>
+                                                <td>{{ $m['deskripsi'] }}</td>
+
                                                     <td>
-                                                        <a href="/mahasiswa/materi-detail">
+                                                        <a href="/mahasiswa/materi-detail?id={{ $m['materi_id'] }}">
                                                             <button type="button" class="btn btn-success btn-sm">
                                                                 Pilih
                                                             </button>
                                                         </a>
                                                     </td>
                                                 </tr>
-
-                                                <tr>
-                                                    <td>isi nama materi</td>
-                                                    <td>isi deskripsi
-                                                    </td>
-                                                    <td>
-                                                        <a href="">
-                                                            <button type="button" class="btn btn-success btn-sm">
-                                                                Pilih
-                                                            </button>
-                                                        </a>
-                                                    </td>
+                                                @endforeach
     
                                             </tbody>
     

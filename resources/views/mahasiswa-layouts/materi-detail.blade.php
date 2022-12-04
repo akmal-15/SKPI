@@ -11,19 +11,23 @@
                         <div class="card-body">
                             <table id="" class="table table-bordered table-hover">
                                 <thead>
+
+                                    <tr>
+                                        <th>nama materi</th>
+                                        <td>{{ $materi['nama_materi'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>deskripsi</th>
+                                        <td>{{ $materi['deskripsi'] }}</td>
+                                    </tr>
                                     <tr>
                                         <th>Waktu</th>
-                                        <td>30 menit</td>
+                                        <td>{{ $materi['waktu_soal'] }}</td>
                                     </tr>
     
                                     <tr>
                                         <th>Total Soal</th>
                                         <td>20 soal</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <th>Aturan</th>
-                                        <td>Lorem ipsum dolor sit amet. </td>
                                     </tr>
     
                                     <tr>

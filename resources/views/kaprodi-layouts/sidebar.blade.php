@@ -74,12 +74,12 @@
                                 <p>Data Soal</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="/kaprodi/tambah-soal" class="nav-link {{ ($title === "Tambah Data Soal") ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tambah Data</p>
                             </a>
-                        </li>
+                        </li> --}}
                         {{-- <li class="nav-item">
                             <a href="" class="nav-link {{ ($title === " Edit Data Kaprodi")
                                 ? 'active' : '' }}">
