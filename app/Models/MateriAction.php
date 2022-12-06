@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Jawaban extends Model
+class MateriAction extends Model
 {
 	use HasFactory;
-	protected $table = 'jawaban';
-	protected $primaryKey = 'jawaban_id';
+	protected $table = 'materi_action';
+	protected $primaryKey = 'materi_action_id';
 	protected $fillable = ['*'];
 }

@@ -13,14 +13,17 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('jawaban', function (Blueprint $table) {
-			$table->id('jawaban_id');
-			$table->unsignedBigInteger('soal_id');
+		Schema::create('materi_action', function (Blueprint $table) {
+			$table->id('materi_action_id');
+
+			$table->unsignedBigInteger('materi_id');
 			$table->unsignedBigInteger('mahasiswa_id');
-			$table->string('jawaban', 100);
+			$table->boolean('submit');
+			$table->timestamp('start_at')->useCurrent();
+			$table->timestamp('end_at')->useCurrent();
 			$table->timestamps();
-			$table->foreign('soal_id')->references('soal_id')->on('soal')->onDelete('cascade')->onUpdate('cascade');
 			$table->foreign('mahasiswa_id')->references('mahasiswa_id')->on('mahasiswa')->onDelete('cascade')->onUpdate('cascade');
+			$table->foreign('materi_id')->references('materi_id')->on('materi')->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
 
@@ -31,6 +34,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('jawabans');
+		Schema::dropIfExists('materi_action');
 	}
 };

@@ -77,5 +77,16 @@ class DatabaseSeeder extends Seeder
 				"waktu_exp" => Carbon::now()->addDay(10),
 			]);
 		}
+		for ($i = 0; $i < rand(10, 40); $i++) {
+			\App\Models\Soal::factory()->create([
+				'materi_id' => 1,
+				"soal" => $faker->text(rand(20, 80)),
+				"jawaban_1" => $faker->text(rand(10, 20)),
+				"jawaban_2" => $faker->text(rand(10, 20)),
+				"jawaban_3" => $faker->text(rand(10, 20)),
+				"jawaban_4" => $faker->text(rand(10, 20)),
+				"jawaban" => 'a',
+			]);
+		}
 	}
 }
