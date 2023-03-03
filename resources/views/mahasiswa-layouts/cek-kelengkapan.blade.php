@@ -1,9 +1,9 @@
-@extends('kaprodi-layouts.kaprodi')
+@extends('mahasiswa-layouts.mahasiswa')
 
 @section('content')
 <div class="content-wrapper">
 
-    @include('admin-layouts.breadcrumb')
+    @include('mahasiswa-layouts.breadcrumbs')
 
     <section class="vh-100 ">
         <div class="container py-5 h-100">
@@ -28,12 +28,12 @@
                             <form method="POST" action="/kaprodi/tambah-materi">
                                 @csrf
                                 <div class="mb-3">
-                                    <label class="form-label">Nama Materi</label>
-                                    <input type="text" class="form-control" name="nama_materi">
+                                    <label class="form-label">Tempat tanggal lahir</label>
+                                    <input type="text" class="form-control" name="ttl">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Deskripsi</label>
-                                    <input type="text" class="form-control" name="deskripsi">
+                                    <label class="form-label">No Ijazah</label>
+                                    <input type="text" class="form-control" name="no-ijazah">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Waktu Soal ( menit )</label>

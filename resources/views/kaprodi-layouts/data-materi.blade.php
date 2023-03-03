@@ -22,6 +22,7 @@
                                                     <th>Deskripsi</th>
                                                     <th>Waktu Soal</th>
                                                     <th>Waktu Expired</th>
+                                                    <th>Prodi</th>
                                                     <th>Edit</th>
                                                     <th>Hapus</th>
     
@@ -33,9 +34,9 @@
                                                 <tr>
                                                     <td>{{ $m['nama_materi'] }}</td>
                                                     <td>{{ $m['deskripsi'] }}</td>
-                                                    <td>{{ $m['waktu_soal'] }}</td>
+                                                    <td>{{ $m['waktu_soal'] }} Menit</td>
                                                     <td>{{ $m['waktu_exp'] }}</td>
-
+                                                    <td>{{ $m['prodi'] }}</td>
                                                     <td>
                                                         {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal{{ $m['materi_id'] }}">
                                                             edit

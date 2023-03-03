@@ -27,8 +27,8 @@ label.radio span {
 }
 
 label.radio input:checked+span {
-    border-color: red;
-    background-color: red;
+    border-color: rgb(16, 9, 143);
+    background-color: rgb(16, 9, 143);
     color: #fff;
 }
 

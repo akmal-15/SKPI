@@ -9,13 +9,13 @@
 				<div class="card">
 
 					@if (session('pesan'))
-					@if (session('status')["status"])
+					@if (session('pesan')["status"])
 					<div class="alert alert-success mb-2">
-						{{ session('status')["pesan"] }}
+						{{ session('pesan')["pesan"] }}
 					</div>
 					@else
 					<div class="alert alert-danger mb-2">
-						{{ session('status')["pesan"] }}
+						{{ session('pesan')["pesan"] }}
 					</div>
 					@endif
 					@endif
@@ -33,12 +33,12 @@
 								</tr>
 								<tr>
 									<th>Waktu</th>
-									<td>{{ $materi['waktu_soal'] }}</td>
+									<td>{{ $materi['waktu_soal'] }} Menit</td>
 								</tr>
 
 								<tr>
 									<th>Total Soal</th>
-									<td>20 soal</td>
+									<td>{{ $jumlah }} Soal</td>
 								</tr>
 
 								<tr>

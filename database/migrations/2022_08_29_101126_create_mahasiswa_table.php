@@ -19,8 +19,11 @@ return new class extends Migration
 			$table->string('nama', 100);
 			$table->string('prodi', 100);
 			$table->string('thn_masuk', 4);
+			$table->int('thn_lulus', 20);
 			$table->text('password')->nullable();
-			// $table->boolean->default(false);
+			$table->boolean('validasi_dokumen')->default(false);
+			$table->string('no_ijazah', 50)->nullable();
+			$table->string('tempat_tanggal_lahir', 50)->nullable();
 			$table->string('token', 10)->nullable()->collation('utf8mb4_bin');
 			$table->timestamp('verified_at')->nullable();
 			$table->timestamps();

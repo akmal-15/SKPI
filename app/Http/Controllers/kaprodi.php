@@ -2,19 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kaprodi as ModelsKaprodi;
-use App\Models\Mahasiswa;
-use App\Models\Materi;
-use App\Models\Pengajuan;
-use App\Models\Soal;
+use no;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Soal;
+use App\Models\Materi;
+use App\Models\no_surat;
+use App\Models\Mahasiswa;
+use App\Models\Pengajuan;
+use App\Models\pengalaman;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-
+use App\Models\capaian_pembelajaran;
 use function GuzzleHttp\Promise\all;
+
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Kaprodi as ModelsKaprodi;
+use App\Models\MateriAction;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Validator;
 
 class kaprodi extends Controller
 {
@@ -76,7 +82,7 @@ class kaprodi extends Controller
 
 
 	public function update_materi(Request $request)
-	{ {
+	{ 
 
 			$validator = Validator::make(
 				$request->input(),
@@ -117,11 +123,11 @@ class kaprodi extends Controller
 			} else {
 				return redirect()->back()->with("pesan", ["status" => false, "pesan" => "gagal update", "id" => $request->input("id")]);
 			}
-		}
+		
 	}
 
 	public function delete_materi(Request $request)
-	{ {
+	{ 
 			$validator = Validator::make(
 				$request->input(),
 				[
@@ -147,7 +153,7 @@ class kaprodi extends Controller
 			} else {
 				return redirect()->back()->with("pesan", ["status" => false, "pesan" => "gagal update", "id" => $request->input("id")]);
 			}
-		}
+		
 	}
 
 
@@ -305,6 +311,7 @@ class kaprodi extends Controller
 				"deskripsi" => ["required"],
 				"waktu_soal" => ["required"],
 				"waktu_exp" => ["required"],
+				"prodi" => ["required"],
 			]
 		);
 
@@ -320,7 +327,8 @@ class kaprodi extends Controller
 			"nama_materi" => $request->input("nama_materi"),
 			"deskripsi" => $request->input("deskripsi"),
 			"waktu_soal" => $request->input("waktu_soal"),
-			'waktu_exp' => $request->input("waktu_exp")
+			'waktu_exp' => $request->input("waktu_exp"),
+			'prodi' => $request->input("prodi")
 			// 'waktu_exp' => Carbon::createFromTimestamp(strtotime($request->input("waktu_exp")))
 		];
 		// dd($data);
@@ -335,15 +343,13 @@ class kaprodi extends Controller
 
 	public function data_soal(Request $request)
 	{
-		// $id = $request->input('id');
-		// if(empty($id)) return redirect()->back();
-
+		
 		$materi = Materi::get();
-		// $soal = Soal::where('materi_id', $materi->)
 		return view('kaprodi-layouts.data-soal', [
 			"title" => "Data Soal",
 			"menu" => "soal",
 			'materi' => empty($materi) ? [] : $materi->toArray(),
+			// 'jumlah' => $jumlah
 		]);
 	}
 
@@ -353,8 +359,12 @@ class kaprodi extends Controller
 		$id = $request->input('id');
 		if (empty($id)) return redirect()->to('/kaprodi/data-soal');
 
+		$materi = Materi::where('materi_id',$id)->first();
+		$jumlah = Soal::where('materi_id', $materi->materi_id)->get()->count();
+
 		// ambil data soal
 		$soal = Soal::where('materi_id', $id)->get();
+		
 		// dd($soal->toArray());
 		// if(empty($soal)) return redirect()->to('/kaprodi/data-soal');
 
@@ -363,17 +373,18 @@ class kaprodi extends Controller
 			"menu" => "soal",
 			'id' => $id,
 			'soal' => $soal->toArray(),
-			'pesan' => session('pesan') ?? false
-
+			'pesan' => session('pesan') ?? false,
+			'jumlah' => $jumlah
 		]);
 	}
 
 	public function validasi_pengajuan()
 	{
+		$mahasiswa = Mahasiswa::with('pengajuan')->where('verified_at' , '!=' , null)->where('validasi_dokumen', false)->get()->toArray();
 		return view('kaprodi-layouts.validasi-pengajuan', [
 			"title" => "Validasi Pengajuan",
 			"menu" => "validasi",
-			"mahasiswa" => Mahasiswa::where("validasi_dokumen", false)->get()->toArray(),
+			"mahasiswa" => $mahasiswa,
 		]);
 	}
 
@@ -382,7 +393,7 @@ class kaprodi extends Controller
 		return view('kaprodi-layouts.sudah-validasi', [
 			"title" => "Sudah di Validasi",
 			"menu" => "validasi",
-			"mahasiswa" => Mahasiswa::where("validasi_dokumen", true)->get()->toArray(),
+			"mahasiswa" => Mahasiswa::with('pengajuan')->where('verified_at', '!=', null)->where('validasi_dokumen', true)->get()->toArray(),
 
 		]);
 	}
@@ -394,11 +405,15 @@ class kaprodi extends Controller
 			return redirect("/kaprodi/validasi-pengajuan");
 		}
 		$db = Pengajuan::where("mahasiswa_id", $id)->get();
+		$db2 = pengalaman::where("mahasiswa_id", $id)->get();
+		// dd($db2);
+
 		return view('kaprodi-layouts.detail-validasi', [
 			"title" => "Detail Validasi Pengajuan",
 			"menu" => "validasi",
 			"mahasiswa" => Mahasiswa::where("mahasiswa_id", $id)->first(),
 			"dokumen" => !empty($db) ? $db->toArray() : [],
+			"dokumen2" => !empty($db2) ? $db2->toArray() : [],
 		]);
 	}
 
@@ -422,14 +437,17 @@ class kaprodi extends Controller
 		}
 
 		$doc = Pengajuan::where('mahasiswa_id', $request->input('id'))->get()->toArray();
-		if (empty($doc)) {
-			return redirect()->back()->with("pesan", ["status" => false, "pesan" => "tidak dokumen"]);
-		}
-		foreach ($doc as $d) {
-			if (!$d['status']) {
-				return redirect()->back()->with("pesan", ["status" => false, "pesan" => "dokumen belum tervalidasi semua"]);
-			}
-		}
+		// kalo wajib dokumen
+		// if (empty($doc)) {
+		// 	return redirect()->back()->with("pesan", ["status" => false, "pesan" => "tidak dokumen"]);
+		// }
+
+		// validasi document
+		// foreach ($doc as $d) {
+		// 	if (!$d['status']) {
+		// 		return redirect()->back()->with("pesan", ["status" => false, "pesan" => "dokumen belum tervalidasi semua"]);
+		// 	}
+		// }
 
 		$db = Mahasiswa::where('mahasiswa_id', $request->input('id'))->update(['validasi_dokumen' => true]);
 
@@ -450,7 +468,6 @@ class kaprodi extends Controller
 		);
 
 		if ($validator->fails()) {
-			dd($validator->errors(), $request->input());
 			return redirect()->back()->with('pesan', ["status" => false, "pesan" => "gagal validasi"]);
 		}
 
@@ -482,15 +499,45 @@ class kaprodi extends Controller
 			return redirect()->back()->with('pesan', ["status" => false, "pesan" => "gagal validasi"]);
 		}
 
-		$db = Pengajuan::where('pengajuan_id', $request->input('id'))->first()->toArray();
+		$db = Pengajuan::where('pengajuan_id', $request->input('id'))->first();
+		
+		if (empty($db)) {
+			return redirect()->back()->with("pesan", ["status" => false, "pesan" => "id ga ada"]);
+		}
+		$db = $db->toArray();
+		$status = $db['status'] ? false : true;
+
+		$db = Pengajuan::where('pengajuan_id', $request->input('id'))->update(['status' => $status]);
+
+		if ($db) {
+			return redirect()->back()->with("pesan", ["status" => true, "pesan" => "data terupdate"]);
+		} else {
+			return redirect()->back()->with("pesan", ["status" => false, "pesan" => "gagal update"]);
+		}
+	}
+
+	public function update_validasi2(Request $request)
+	{
+		$validator = Validator::make(
+			$request->input(),
+			[
+				"id" => ["required", "numeric"],
+			]
+		);
+
+		if ($validator->fails()) {
+			return redirect()->back()->with('pesan', ["status" => false, "pesan" => "gagal validasi"]);
+		}
+
+		$db = pengalaman::where('pengalaman_id', $request->input('id'))->first();
 
 		if (empty($db)) {
 			return redirect()->back()->with("pesan", ["status" => false, "pesan" => "id ga ada"]);
 		}
-
+		$db = $db->toArray();
 		$status = $db['status'] ? false : true;
 
-		$db = Pengajuan::where('pengajuan_id', $request->input('id'))->update(['status' => $status]);
+		$db = pengalaman::where('pengalaman_id', $request->input('id'))->update(['status' => $status]);
 
 		if ($db) {
 			return redirect()->back()->with("pesan", ["status" => true, "pesan" => "data terupdate"]);
@@ -511,16 +558,148 @@ class kaprodi extends Controller
 	public function dokumen_akhir(Request $request, $id)
 	{
 		$mahasiswa = Mahasiswa::where('mahasiswa_id', $id)->first();
-		if (!$mahasiswa) {
-			return abort(404);
+		if(empty($mahasiswa)){
+			return redirect('/kaprodi/dokumen')->with('pesan', ["status" => false, "pesan" => "mahasiswa belum tervalidasi. silakan hubungi akademik"]);
 		}
-		$db = Pengajuan::where('mahasiswa_id', $mahasiswa['mahasiswa_id'])->get();
+		if (!$mahasiswa['validasi_dokumen']) return redirect('/kaprodi/dokumen')->with('pesan', ["status" => false, "pesan" => "mahasiswa belum tervalidasi"]);
+		if (empty($mahasiswa['thn_lulus']) || empty($mahasiswa['tempat_tanggal_lahir']) || empty($mahasiswa['no_ijazah'])) return redirect('/kaprodi/dokumen')->with('pesan', ["status" => false, "pesan" => "mahasiswa belum melengkapi dokumen"]);
+		$db = Pengajuan::where('mahasiswa_id', $mahasiswa['mahasiswa_id'])->where('status', true)->get();
+		$db2 = pengalaman::where('mahasiswa_id', $mahasiswa['mahasiswa_id'])->where('status', true)->get();
+		$db3 = capaian_pembelajaran::where('prodi', $mahasiswa['prodi'])->get();
 
+		$materi_action = MateriAction::where('mahasiswa_id', $mahasiswa['mahasiswa_id'])->first();
+		if (empty($materi_action)) {
+			return redirect('/kaprodi/dokumen')->with('pesan', ["status" => false, "pesan" => "mahasiswa belum memilih materi dan mengerjakan soal"]);
+		}
+		$nilaiDB = Materi::where(['materi.materi_id'=> $materi_action->materi_id, 'mahasiswa_id' => $id])->join('nilai', 'nilai.materi_id', '=', 'materi.materi_id')->get();
+		if (empty($nilaiDB) || empty($nilaiDB->toArray())) {
+			return redirect('/kaprodi/dokumen')->with('pesan', ["status" => false, "pesan" => "mahasiswa belum memilih materi dan mengerjakan soal"]);
+		}		// dd($materiDB->toArray());
+		// $nilaiDB = nilai::where('mahasiswa_id', $mahasiswa['mahasiswa_id'])->get();
+		$nilaiDB = $nilaiDB ? $nilaiDB->toArray() : [];
+		foreach ($nilaiDB as $i => $v) {
+			if ($v['grade'] == 'A') {
+				$nilaiDB[$i]['grade'] = 'Sangat Baik';
+			} else if ($v['grade'] == 'B') {
+				$nilaiDB[$i]['grade'] = 'Baik';
+			} else if ($v['grade'] == 'C') {
+				$nilaiDB[$i]['grade'] = 'Kurang Baik';
+			} else if ($v['grade'] == 'D') {
+				$nilaiDB[$i]['grade'] = 'Cukup';
+			} else {
+				$nilaiDB[$i]['grade'] = 'Kurang Cukup';
+			}
+		}
+		// dd(no_surat::where('mahasiswa_id', $request->authM['mahasiswa_id'])->first());
 		return view('mahasiswa-layouts.dokumen_akhir', [
-			"title" => "SKPIMU",
-			"no" => ".............",
-			"user" => $mahasiswa->toArray(),
+			"title" => "SKPI",
+			"no" => no_surat::where('thn_lulus', $mahasiswa['thn_lulus'])->first(),
+			"user" => $mahasiswa,
 			"kualifikasi" => !empty($db) ? $db->toArray() : [],
+			"kualifikasi2" => !empty($db2) ? $db2->toArray() : [],
+			"cp" => !empty($db3) ? $db3->toArray() : [],
+			"nilai" =>  $nilaiDB,
 		]);
+	}
+
+	public function cp(Request $request)
+	{
+		return view('kaprodi-layouts.capaian_pembelajaran', [
+			'menu' => 'cp',
+			"title" => "Capaian Pembelajaran",
+			"mahasiswa" => $request->authK,
+			'cp' => capaian_pembelajaran::get(),
+			"pengajuan" => null,
+		]);
+	}
+
+	public function cpPost(Request $request)
+	{
+		$validator = Validator::make(
+			$request->input(),
+			[
+				// "id" => ["required", "numeric", "min:0"],
+				"kk.*" => ["required"],
+				"pp.*" => ["required"],
+				"sk.*" => ["required"],
+				"prodi.*" => ["required"],
+			]
+		);
+
+
+		if ($validator->fails()) {
+			// dd($validator->errors()->toArray());
+			return redirect()->back()->with('pesan', ["status" => false, "pesan" => "gagal validasi"]);
+		}
+
+		$data = [];
+		foreach ($request->input("kk") as $i => $val) {
+			array_push($data, [
+				"kemampuan_kerja" => $val,
+				"mahasiswa_id" => $request->input('id'),
+				"penguasaan_pengetahuan" => $request->input('pp')[$i],
+				"sikap_khusus" => $request->input('sk')[$i],
+				"prodi" => $request->input("prodi")[$i],
+			]);
+		}
+		$result = capaian_pembelajaran::truncate();
+		// $result = empty($result) ? [] : $result->toArray();
+		// array_push($data, $result);
+		$result = capaian_pembelajaran::insert($data);
+		if ($result) {
+			return redirect()->back()->with("pesan", ["status" => true, "pesan" => "berhasil menyimpan"]);
+		} else {
+			return redirect()->back()->with("pesan", ["status" => false, "pesan" => "gagal menyimpan"]);
+		}
+	}
+
+	public function ns(Request $request)
+	{
+		return view('kaprodi-layouts.no_surat', [
+			'menu' => 'nomor surat',
+			"title" => "Nomor Surat",
+			"mahasiswa" => $request->authK,
+			'ns' => no_surat::get()
+			
+		]);
+	}
+
+	public function nsPost(Request $request)
+	{
+		$validator = Validator::make(
+			$request->input(),
+			[
+				"ns" => ["required"],
+				"thn_lulus" => ["required"],
+			]
+		);
+
+
+		if ($validator->fails()) {
+			// dd($validator->errors()->toArray());
+			return redirect()->back()->with('pesan', ["status" => false, "pesan" => "gagal validasi"]);
+		}
+
+		// $data = [
+		// 	"no_surat" => $request->input('ns'),
+		// 	"thn_lulus" => $request->thn_lulus,
+		// ];
+		
+		// $result = no_surat::insert($data);
+		$result = no_surat::updateOrCreate(
+			// atribut
+			[
+				'thn_lulus' => $request->thn_lulus
+			],
+			// value
+			[
+				// 'thn_lulus' => $request->thn_lulus,
+				'no_surat' => $request->input('ns')
+			]);
+		if ($result) {
+			return redirect()->back()->with("pesan", ["status" => true, "pesan" => "berhasil menyimpan"]);
+		} else {
+			return redirect()->back()->with("pesan", ["status" => false, "pesan" => "gagal menyimpan"]);
+		}
 	}
 }

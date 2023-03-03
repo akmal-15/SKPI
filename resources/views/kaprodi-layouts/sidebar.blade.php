@@ -10,7 +10,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <img src="{{ asset ('AdminLTE/dist')}}/img/user2-160x160.jpg" class="img-circle elevation-2"
                     alt="User Image">
@@ -18,7 +18,7 @@
             <div class="info">
                 <a href="#" class="d-block">Kaprodi</a>
             </div>
-        </div>
+        </div> --}}
 
 
         <!-- Sidebar Menu -->
@@ -88,6 +88,14 @@
                             </a>
                         </li> --}}
                     </ul>
+
+                <li class="nav-item  ">
+                    <a href="/kaprodi/capaian-pembelajaran" class="nav-link btn-secondary">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p class="text-light">Capaian Pembelajaran</p>
+                    </a>
+                </li>
+                    
                 <li class="nav-item  ">
                     <a href="/kaprodi/validasi-pengajuan" class="nav-link btn-secondary">
                         <i class="nav-icon fas fa-file"></i>
@@ -106,7 +114,15 @@
                         <p class="text-light">Dokumen</p>
                     </a>
                 </li>
+
+                <li class="nav-item  ">
+                    <a href="/kaprodi/no-surat" class="nav-link btn-secondary">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p class="text-light">Nomor Surat</p>
+                    </a>
                 </li>
+               
+            </li>
 
             </ul>
         </nav>

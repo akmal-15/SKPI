@@ -28,9 +28,17 @@
                 <p class="login-box-msg">Verifikasi Mahasiswa FTI UNSERA</p>
 
                 @if (session('status'))
-                <div class="alert alert-danger">
-                    {{ session('status')['pesan'] }}
+                @if (session('status')["status"])
+                <div class="alert alert-success mb-2">
+                    {{ session('status')["pesan"] }}
                 </div>
+                
+                @else
+                <div class="alert alert-danger mb-2">
+                    {{ session('status')["pesan"] }}
+                </div>
+                
+                @endif
                 @endif
 
                 <form action="" method="post">

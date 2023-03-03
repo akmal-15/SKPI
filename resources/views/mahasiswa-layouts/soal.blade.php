@@ -4,13 +4,13 @@
 <div class="container mt-5">
 	<div class="">
 		@if (session('pesan'))
-		@if (session('status')["status"])
+		@if (session('pesan')["status"])
 		<div class="alert alert-success mb-2">
-			{{ session('status')["pesan"] }}
+			{{ session('pesan')["pesan"] }}
 		</div>
 		@else
 		<div class="alert alert-danger mb-2">
-			{{ session('status')["pesan"] }}
+			{{ session('pesan')["pesan"] }}
 		</div>
 		@endif
 		@endif
@@ -32,26 +32,22 @@
 						<h5 class="mt-1 ml-2">{{ $soal['soal'] }}</h5>
 					</div>
 					<div class="ans d-block">
-						<label class="radio w-100"> <input type="radio" name="jawaban_group" value="a" <?=$jawaban=='a' ? 'selected'
-								: '' ?>> <span class="w-100">{{
+						<label class="radio w-100"> <input type="radio" name="jawaban_group" value="a"  {{ $jawaban == 'a' ? 'checked' : '' }}> <span class="w-100">{{
 								$soal['jawaban_1'] }}</span>
 						</label>
 					</div>
 					<div class="ans d-block">
-						<label class="radio w-100"> <input type="radio" name="jawaban_group" value="b" <?=$jawaban=='b' ? 'selected'
-								: '' ?>> <span class="w-100">{{
+						<label class="radio w-100"> <input type="radio" name="jawaban_group" value="b" {{ $jawaban == 'b' ? 'checked' : '' }}> <span class="w-100">{{
 								$soal['jawaban_2'] }}</span>
 						</label>
 					</div>
 					<div class="ans d-block">
-						<label class="radio w-100"> <input type="radio" name="jawaban_group" value="c" <?=$jawaban=='c' ? 'selected'
-								: '' ?>>
+						<label class="radio w-100"> <input type="radio" name="jawaban_group" value="c" {{ $jawaban == 'c' ? 'checked' : '' }}>
 							<span class="w-100">{{ $soal['jawaban_3'] }}</span>
 						</label>
 					</div>
 					<div class="ans d-block ">
-						<label class="radio w-100"> <input type="radio" name="jawaban_group" value="d" <?=$jawaban=='d' ? 'selected'
-								: '' ?>> <span class="w-100">{{
+						<label class="radio w-100"> <input type="radio" name="jawaban_group" value="d" {{ $jawaban == 'd' ? 'checked' : '' }}> <span class="w-100">{{
 								$soal['jawaban_4'] }}</span>
 						</label>
 					</div>
@@ -62,10 +58,10 @@
 						@if ($page > 1)
 						<form action="/mahasiswa/soal" method="post">
 							@csrf()
-							<input type="hidden" name="soal_id" value="{{ $id }}">
+							<input type="hidden" name="soal_id" value="{{ $soal['soal_id'] }}">
 							<input type="hidden" name="url" value="/mahasiswa/soal?page={{ $page - 1 }}&id={{ $id }}">
 							<button class="btn btn-primary d-flex align-items-center btn-danger" type="submit"><i
-									class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;previous</button>
+									class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;Back</button>
 						</form>
 						@endif
 					</div>
@@ -73,7 +69,7 @@
 
 						@if ($page < count($soal_list)) <form action="/mahasiswa/soal" method="post">
 							@csrf()
-							<input type="hidden" name="soal_id" value="{{ $id }}">
+							<input type="hidden" name="soal_id" value="{{ $soal['soal_id'] }}">
 							<input type="hidden" name="url" value="/mahasiswa/soal?page={{ $page + 1 }}&id={{ $id }}">
 							<button class="btn btn-primary border-success align-items-center btn-success" type="submit">Next <i
 									class="fa fa-angle-right ml-2"></i></button>
@@ -82,12 +78,19 @@
 					</div>
 				</div>
 			</div>
+			<div class="w-100 my-2" style="text-align: center">
+					<form action="/mahasiswa/soal-submit" method="post">
+						@csrf()
+						<input type="hidden" name="materi_id" value="{{ $materi->materi_id }}">
+						<button class="btn btn-primary border-success align-items-center btn-success" type="submit">Finish</button>
+					</form>
+			</div>
 		</div>
-		<div class="mr-auto p-1 d-flex flex-wrap">
+		<div class="mr-auto p-1 d-flex flex-wrap ">
 			@foreach ($soal_list as $i => $v)
 			<form action="/mahasiswa/soal" method="post">
 				@csrf()
-				<input type="hidden" name="soal_id" value="{{ $id }}">
+				<input type="hidden" name="soal_id" value="{{ $soal['soal_id'] }}">
 				<input type="hidden" name="url" value="/mahasiswa/soal?page={{ $i+1 }}&id={{ $id }}">
 				<button type="submit" class="btn btn-dark m-1">{{ $i +1 }}</button>
 			</form>

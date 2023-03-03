@@ -61,28 +61,41 @@ Route::get('/kaprodi/data-soal-detail',  [kaprodi::class, 'detail_soal'])->middl
 Route::get('/kaprodi/validasi-pengajuan',  [kaprodi::class, 'validasi_pengajuan'])->middleware("isKaprodi");
 Route::get('/kaprodi/validasi-pengajuan-detail',  [kaprodi::class, 'detail_validasi'])->middleware("isKaprodi");
 Route::post('/kaprodi/validasi-pengajuan-update',  [kaprodi::class, 'update_validasi'])->middleware("isKaprodi");
+Route::post('/kaprodi/validasi-pengalaman-update',  [kaprodi::class, 'update_validasi2'])->middleware("isKaprodi");
 Route::get('/kaprodi/sudah-validasi',  [kaprodi::class, 'sudah_validasi'])->middleware("isKaprodi");
 Route::post('/kaprodi/konfirmasi-validasi',  [kaprodi::class, 'konfirmasi_validasi'])->middleware("isKaprodi");
 Route::post('/kaprodi/konfirmasi-validasi-batal',  [kaprodi::class, 'konfirmasi_validasiBatal'])->middleware("isKaprodi");
-Route::get('/kaprodi/dokumen',  [kaprodi::class, 'dokumen'])->middleware("isKaprodi")->middleware("isKaprodi");
-Route::get('/kaprodi/dokumen/skpi/{id}',  [kaprodi::class, 'dokumen_akhir'])->middleware("isKaprodi")->middleware("isKaprodi");
+Route::get('/kaprodi/dokumen',  [kaprodi::class, 'dokumen'])->middleware("isKaprodi");
+Route::get('/kaprodi/dokumen/skpi/{id}',  [kaprodi::class, 'dokumen_akhir'])->middleware("isKaprodi");
+Route::get('/kaprodi/capaian-pembelajaran', [kaprodi::class, 'cp'])->middleware("isKaprodi");
+Route::post('/kaprodi/capaian-pembelajaran', [kaprodi::class, 'cpPost'])->middleware("isKaprodi");
+Route::get('/kaprodi/no-surat', [kaprodi::class, 'ns'])->middleware("isKaprodi");
+Route::post('/kaprodi/no-surat', [kaprodi::class, 'nsPost'])->middleware("isKaprodi");
 
 
 //Mahasiswa
-Route::get('/mahasiswa', [mahasiswaController::class, 'index'])->middleware("isMahasiswa");
 Route::get('/login-mahasiswa', [mahasiswaController::class, 'login']);
 Route::get('/logout-mahasiswa', [mahasiswaController::class, 'logout']);
 Route::post('/login-mahasiswa', [mahasiswaController::class, 'loginPost']);
 Route::get('/verifikasi', [mahasiswaController::class, 'verifikasi']);
 Route::post('/verifikasi', [mahasiswaController::class, 'verifikasiPost']);
+Route::get('/mahasiswa', [mahasiswaController::class, 'index'])->middleware("isMahasiswa");
+Route::post('/mahasiswa', [mahasiswaController::class, 'indexPost'])->middleware("isMahasiswa");
 Route::get('/mahasiswa/materi', [mahasiswaController::class, 'materi'])->middleware("isMahasiswa");
 Route::get('/mahasiswa/materi-detail', [mahasiswaController::class, 'materi_detail'])->middleware("isMahasiswa");
 Route::post('/mahasiswa/materi-detail', [mahasiswaController::class, 'materi_detail_post'])->middleware("isMahasiswa");
 Route::get('/mahasiswa/soal', [mahasiswaController::class, 'soal'])->middleware("isMahasiswa");
 Route::post('/mahasiswa/soal', [mahasiswaController::class, 'soal_post'])->middleware("isMahasiswa");
+Route::post('/mahasiswa/soal-submit', [mahasiswaController::class, 'soal_submit'])->middleware("isMahasiswa");
 Route::get('/mahasiswa/pengajuan', [mahasiswaController::class, 'pengajuan'])->middleware("isMahasiswa");
 Route::post('/mahasiswa/pengajuan', [mahasiswaController::class, 'pengajuanPost'])->middleware("isMahasiswa");
 Route::get('/mahasiswa/dokumen', [mahasiswaController::class, 'dokumen'])->middleware("isMahasiswa");
-Route::post('/mahasiswa/dokumen-delete', [mahasiswaController::class, 'dokumenDelete'])->middleware("isMahasiswa");
+Route::post('/mahasiswa/pengajuan-delete', [mahasiswaController::class, 'dokumenDelete'])->middleware("isMahasiswa");
+Route::get('/mahasiswa/cek-kelengkapan', [mahasiswaController::class, 'cek'])->middleware("isMahasiswa");
 Route::get('/mahasiswa/akun', [mahasiswaController::class, 'akun'])->middleware("isMahasiswa");
 Route::get('/mahasiswa/dokumen_akhir', [mahasiswaController::class, 'doc'])->middleware("isMahasiswa");
+// Route::get('/mahasiswa/capaian-pembelajaran', [mahasiswaController::class, 'cp'])->middleware("isMahasiswa");
+// Route::post('/mahasiswa/capaian-pembelajaran', [mahasiswaController::class, 'cpPost'])->middleware("isMahasiswa");
+Route::get('/mahasiswa/pengalaman', [mahasiswaController::class, 'pengalaman'])->middleware("isMahasiswa");
+Route::post('/mahasiswa/pengalaman', [mahasiswaController::class, 'pengalamanPost'])->middleware("isMahasiswa");
+Route::post('/mahasiswa/pengalaman-delete', [mahasiswaController::class, 'pengalamanDelete'])->middleware("isMahasiswa");

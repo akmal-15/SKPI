@@ -21,6 +21,7 @@ return new class extends Migration
             // $table->string('nilai', 100);
             $table->integer('waktu_soal');
             $table->timestamp('waktu_exp');
+            $table->string('prodi', 50);
             $table->timestamps();
             $table->foreign('kaprodi_id')->references('kaprodi_id')->on('kaprodi')->onDelete('cascade')->onUpdate('cascade');
         });

@@ -11,7 +11,9 @@
             <ul>
                 <li><a class="nav-link scrollto " href="/mahasiswa">Home</a></li>
                 <li><a class="nav-link scrollto" href="/mahasiswa/materi">Materi</a></li>
+                {{-- <li><a class="nav-link scrollto" href="/mahasiswa/capaian-pembelajaran">Capaian Pembelajaran</a></li> --}}
                 <li><a class="nav-link scrollto" href="/mahasiswa/pengajuan">Pengajuan</a></li>
+                <li><a class="nav-link scrollto" href="/mahasiswa/pengalaman">Pengalaman</a></li>
                 <li><a class="nav-link scrollto" href="/mahasiswa/dokumen">Dokumen</a></li>
                 {{-- <li><a class="nav-link scrollto" href="/mahasiswa/akun">Akun</a></li> --}}
                 <li><a class="getstarted scrollto" href="/logout-mahasiswa">Keluar</a></li>

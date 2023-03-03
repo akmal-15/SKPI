@@ -13,9 +13,16 @@ class Mahasiswa extends Model
     protected $primaryKey = 'mahasiswa_id';
     protected $fillable = [
         'nim', 'nama', 'prodi',
-        'thn_masuk', 'password', 'token', 'verified_at', 'validasi_dokumen'
+        'thn_masuk', 'thn_lulus', 'password', 'token', 'verified_at', 'validasi_dokumen', 'no_ijazah', 
+        'tempat_tanggal_lahir',
     ];
     protected $casts = [
         'validasi_dokumen' => 'boolean',
     ];
+
+
+    public function pengajuan()
+    {
+        return $this->hasMany(Pengajuan::class, 'mahasiswa_id', 'mahasiswa_id');
+    }
 }

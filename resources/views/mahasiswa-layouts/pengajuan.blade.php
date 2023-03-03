@@ -6,22 +6,22 @@
 
 
    
-    @if ($mahasiswa['validasi_dokumen'])
+    @if ($pengajuan)
         <h3 class="text-center my-5">sudah terkonfirmasi</h3>
     @else
         <div class="d-flex justify-content-end mt-4">
             <button type="button" class="btn btn-success ml-3 btn-tambah">Tambah Kolom</button>
         </div>
         
-        @if (session('status'))
-            @if (session('status')["status"])
+        @if (session('pesan'))
+            @if (session('pesan')["status"])
             <div class="alert alert-success mb-2">
-                {{ session('status')["pesan"] }}
+                {{ session('pesan')["pesan"] }}
             </div>
             
             @else
             <div class="alert alert-danger mb-2">
-                {{ session('status')["pesan"] }}
+                {{ session('pesan')["pesan"] }}
             </div>
             
             @endif
@@ -43,7 +43,7 @@
             </div>
         
             <div class="text-center">
-                <button type="submit" class="btn btn-primary mt-3 mb-4 ">Kirim</button>
+                <button type="submit" class="btn btn-primary mt-3 mb-4 ">Simpan</button>
             </div>
         
         </form>
@@ -60,11 +60,11 @@
         let html = `<div class="col-12 row">
             <div class="col-11">
                 <div class="form-group mb-2">
-                    <label class="mb-2">Nama Kegiatan</label>
+                    <label class="mb-2">Prestasi atau Penghargaan</label>
                     <input name='kegiatan[]' type="text" class="form-control" id="">
                 </div>
                 <div class="form-group mb-2">
-                    <label class="mb-2">Link</label>
+                    <label class="mb-2">Upload Sertifikat</label>
                     <input name='link[]' accept="application/pdf" type="file" class="form-control" id="">
                 </div>
             </div>

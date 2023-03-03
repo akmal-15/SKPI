@@ -96,7 +96,7 @@
             <thead>
                 <tr>
                     <th>Nama Kegiatan</th>
-                    <th>Lihat Bukti</th>
+                    <th>Lihat Sertifikat</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -106,7 +106,7 @@
                 @foreach ($dokumen as $d)
                 <tr>
                     <td>{{ $d['kegiatan'] }}</td>
-                    <td><a href="{{ asset($d['kegiatan_url']) }}" target="_blank" class="btn btn-primary"> <i
+                    <td><a href="/storage/{{ $d['kegiatan_url'] }}" target="_blank" class="btn btn-primary"> <i
                                 class="fas fa-eye"></i> </a></td>
                     <td>
                         @if ($d['status'])
@@ -123,6 +123,31 @@
                                 <input type="hidden" name="id" value="{{ $d['pengajuan_id'] }}">
                                 <button type="submit" class="btn btn-warning ">Ubah Status</button>                            
                             </form>
+                        @endif
+                    </td>
+                </tr>
+                @endforeach
+
+                @foreach ($dokumen2 as $d)
+                <tr>
+                    <td>{{ $d['kegiatan'] }}</td>
+                    <td><a href="/storage/{{ $d['url'] }}" target="_blank" class="btn btn-primary"> <i class="fas fa-eye"></i>
+                        </a></td>
+                    <td>
+                        @if ($d['status'])
+                        Di Terima
+                        @else
+                        Di Tolak
+                        @endif
+                    </td>
+                
+                    <td>
+                        @if (!$mahasiswa->validasi_dokumen)
+                        <form action="/kaprodi/validasi-pengalaman-update" method="post">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $d['pengalaman_id'] }}">
+                            <button type="submit" class="btn btn-warning ">Ubah Status</button>
+                        </form>
                         @endif
                     </td>
                 </tr>

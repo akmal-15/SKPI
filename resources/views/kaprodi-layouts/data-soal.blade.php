@@ -19,7 +19,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Nama Materi</th>
-                                                <th>Total Soal</th>
+                                                {{-- <th>Total Soal</th> --}}
                                                 <th>Detail</th>
                                             </tr>
                                         </thead>
@@ -27,7 +27,7 @@
                                             @foreach($materi as $i => $v)
                                                 <tr>
                                                     <td>{{ $v['nama_materi'] }}</td>
-                                                    <td>XX</td>
+                                                    {{-- <td>{{ $jumlah }}</td> --}}
                                                     <td>
                                                         <a href="/kaprodi/data-soal-detail?id={{ $v['materi_id'] }}" class="btn btn-primary btn-sm">
                                                             <i class="fas fa-eye"></i>

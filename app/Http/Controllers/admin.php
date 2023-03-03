@@ -101,9 +101,9 @@ class admin extends Controller
 
         $result = Mahasiswa::insert($data);
         if ($result) {
-            return redirect()->back()->with("status", ["status" => true, "pesan" => "berhasil menambahkan mahasiswa"]);
+            return redirect()->back()->with("status", ["status" => true, "pesan" => "berhasil menambahkan data mahasiswa"]);
         } else {
-            return redirect()->back()->with("status", ["status" => false, "pesan" => "gagal menambahkan mahasiswa"]);
+            return redirect()->back()->with("status", ["status" => false, "pesan" => "gagal menambahkan data mahasiswa"]);
         }
     }
 

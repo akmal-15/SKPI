@@ -13,6 +13,7 @@
 								<div class="card">
 									<div class="card-body">
 										<button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">Tambah Soal</button>
+                                        <h3 class="text-center">Total Soal: {{ $jumlah }}</h3>
 									</div>
 								</div>
 							</div>
@@ -108,30 +109,30 @@
 
 						<div class="mb-3">
 								<label class="form-label">Soal</label>
-								<input type="text" name="soal[]" class="form-control" value="asdasdwsa">
+								<input type="text" name="soal[]" class="form-control" >
 						</div>
 						<div class="mb-3">
-								<label class="form-label">Jawaban 1</label>
-								<input name="jawabanA[]" type="text" class="form-control" value="asawas">
+								<label class="form-label">Jawaban A</label>
+								<input name="jawabanA[]" type="text" class="form-control">
 						</div>
 						<div class="mb-3">
-								<label class="form-label">Jawaban 2</label>
-								<input name="jawabanB[]" type="text" class="form-control" value="asawas">
+								<label class="form-label">Jawaban B</label>
+								<input name="jawabanB[]" type="text" class="form-control">
 						</div>
 						<div class="mb-3">
-								<label class="form-label">Jawaban 3</label>
-								<input name="jawabanC[]" type="text" class="form-control" value="asawas">
+								<label class="form-label">Jawaban C</label>
+								<input name="jawabanC[]" type="text" class="form-control">
 						</div>
 						<div class="mb-3">
-								<label class="form-label">Jawaban 4</label>
-								<input name="jawabanD[]" type="text" class="form-control" value="asawas">
+								<label class="form-label">Jawaban D</label>
+								<input name="jawabanD[]" type="text" class="form-control">
 						</div>
 
 						<div class="mb-3">
 								<label class="form-label">Jawaban Benar</label>
 								<select name="jawaban[]" class="form-control">
 										<option value="">Pilih Jawaban</option>
-										<option value="A" selected>Jawaban A</option>
+										<option value="A">Jawaban A</option>
 										<option value="B">Jawaban B</option>
 										<option value="C">Jawaban C</option>
 										<option value="D">Jawaban D</option>

@@ -10,8 +10,18 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
-                                <div class="card">
-    
+                                @if ($pesan)
+                                @if ($pesan["status"])
+                                <div class="alert alert-success mb-2">
+                                    {{ $pesan["pesan"] }}
+                                </div>
+                                @else
+                                <div class="alert alert-danger mb-2">
+                                    {{ $pesan["pesan"] }}
+                                </div>
+                                @endif
+                                @endif
+                                <div class="card mt-3">
                                     <div class="card-body">
                                         <table id="example2" class="table table-bordered table-hover">
                                             <thead>
@@ -31,6 +41,12 @@
 
                                                     <td>
                                                         <a href="/mahasiswa/materi-detail?id={{ $m['materi_id'] }}">
+                                                            {{-- pake filter --}}
+                                                            {{-- <button type="button" class="btn {{ $m['materi_id'] == $ma_ac ? 'btn-success' : 'btn-danger' }} btn-sm">
+                                                                Pilih
+                                                            </button> --}}
+
+                                                            {{-- tanpa filter --}}
                                                             <button type="button" class="btn btn-success btn-sm">
                                                                 Pilih
                                                             </button>

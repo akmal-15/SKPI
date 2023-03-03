@@ -15,6 +15,18 @@
                             <div class="card">
 
                                 <div class="card-body">
+                                    @if (session('pesan'))
+                                    @if (session('pesan')['status'])
+                                    <div class="alert alert-success mb-3">
+                                        {{ session('pesan')['pesan'] }}
+                                    </div>
+                                    @else
+                                    <div class="alert alert-danger mb-3">
+                                        {{ session('pesan')['pesan'] }}
+                                    </div>
+                                    @endif
+                                    @endif
+
                                     <table id="example2" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
